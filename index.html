@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>罗斯切尔德家族资产管理中心（标签微调版）</title>
+<title>罗斯切尔德家族资产管理中心（手机版表格全显示版）</title>
 <style>
 :root{
   --bg:#070809;
@@ -3227,6 +3227,382 @@ html.splash-active body{
   }
 }
 
+
+/* =========================================================
+   全球资本节点名称统一字号
+   层级改由节点大小 / 圆环 / 连线 / 亮度体现
+   ========================================================= */
+.map-card .map-point text:not(.sub),
+.map-card .map-point.core-node text:not(.sub),
+.map-card .map-point.secondary-node text:not(.sub),
+.map-card .map-point.offshore-node text:not(.sub){
+  font-size:16px!important;
+  font-weight:650!important;
+  fill:#eee5d4!important;
+  opacity:1!important;
+}
+
+/* 金额也统一字号，避免层级造成视觉跳动 */
+.map-card .map-point .sub,
+.map-card .map-point.core-node .sub,
+.map-card .map-point.secondary-node .sub,
+.map-card .map-point.offshore-node .sub{
+  font-size:11px!important;
+  font-weight:500!important;
+  fill:#9aa0a5!important;
+  opacity:.95!important;
+}
+
+@media(max-width:700px){
+  .map-card .map-point text:not(.sub),
+  .map-card .map-point.core-node text:not(.sub),
+  .map-card .map-point.secondary-node text:not(.sub),
+  .map-card .map-point.offshore-node text:not(.sub){
+    font-size:15px!important;
+  }
+
+  .map-card .map-point .sub,
+  .map-card .map-point.core-node .sub,
+  .map-card .map-point.secondary-node .sub,
+  .map-card .map-point.offshore-node .sub{
+    font-size:10.5px!important;
+  }
+}
+
+
+/* =========================================================
+   全球资本节点：文字与连线明显增强
+   ========================================================= */
+
+/* 节点名称明显放大 */
+.map-card .map-point text:not(.sub),
+.map-card .map-point.core-node text:not(.sub),
+.map-card .map-point.secondary-node text:not(.sub),
+.map-card .map-point.offshore-node text:not(.sub){
+  font-size:20px!important;
+  font-weight:700!important;
+  fill:#f2e9d8!important;
+  opacity:1!important;
+  paint-order:stroke fill;
+  stroke:#0a0d0f!important;
+  stroke-width:2.5px!important;
+  stroke-linejoin:round;
+}
+
+/* 金额与名称拉开明显层级 */
+.map-card .map-point .sub,
+.map-card .map-point.core-node .sub,
+.map-card .map-point.secondary-node .sub,
+.map-card .map-point.offshore-node .sub{
+  font-size:12.5px!important;
+  font-weight:500!important;
+  fill:#a8afb4!important;
+  opacity:1!important;
+  paint-order:stroke fill;
+  stroke:#0a0d0f!important;
+  stroke-width:1.9px!important;
+}
+
+/* 连线整体提亮，并继续保留三级层次 */
+.capital-routes .route-core{
+  stroke:rgba(215,180,106,.72)!important;
+  stroke-width:1.8!important;
+  stroke-dasharray:5 8!important;
+}
+
+.capital-routes .route-secondary{
+  stroke:rgba(215,180,106,.46)!important;
+  stroke-width:1.3!important;
+  stroke-dasharray:3 9!important;
+}
+
+.capital-routes .route-offshore{
+  stroke:rgba(215,180,106,.28)!important;
+  stroke-width:1!important;
+  stroke-dasharray:2 11!important;
+}
+
+@media(max-width:700px){
+  .map-card .map-point text:not(.sub),
+  .map-card .map-point.core-node text:not(.sub),
+  .map-card .map-point.secondary-node text:not(.sub),
+  .map-card .map-point.offshore-node text:not(.sub){
+    font-size:18px!important;
+    stroke-width:2.4px!important;
+  }
+
+  .map-card .map-point .sub,
+  .map-card .map-point.core-node .sub,
+  .map-card .map-point.secondary-node .sub,
+  .map-card .map-point.offshore-node .sub{
+    font-size:11.5px!important;
+    stroke-width:1.8px!important;
+  }
+
+  .capital-routes .route-core{
+    stroke-width:1.7!important;
+  }
+  .capital-routes .route-secondary{
+    stroke-width:1.25!important;
+  }
+  .capital-routes .route-offshore{
+    stroke-width:.95!important;
+  }
+}
+
+
+/* =========================================================
+   手机版表格适配
+   防止中文因列宽过窄变成一字一行
+   ========================================================= */
+.table-scroll{
+  width:100%;
+}
+
+/* 中文词组尽量整体换行，而不是逐字断开 */
+.data-table th,
+.data-table td{
+  word-break:keep-all!important;
+  overflow-wrap:normal!important;
+}
+
+/* 桌面端保持原布局 */
+@media(min-width:641px){
+  .table-scroll{
+    overflow:visible;
+  }
+}
+
+/* 手机端：表格保持可读宽度，超出部分横向滑动 */
+@media(max-width:640px){
+  .table-scroll{
+    width:100%;
+    overflow-x:auto;
+    overflow-y:hidden;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    padding-bottom:2px;
+  }
+
+  .table-scroll::-webkit-scrollbar{
+    display:none;
+  }
+
+  .table-scroll .data-table{
+    width:max-content!important;
+    min-width:720px!important;
+    table-layout:auto!important;
+  }
+
+  .table-scroll .data-table th,
+  .table-scroll .data-table td{
+    white-space:normal!important;
+    word-break:keep-all!important;
+    overflow-wrap:normal!important;
+    vertical-align:top!important;
+  }
+
+  /* 第一列：资产/账户名称 */
+  .table-scroll .data-table th:nth-child(1),
+  .table-scroll .data-table td:nth-child(1){
+    min-width:190px!important;
+    width:190px!important;
+  }
+
+  /* 第二列 */
+  .table-scroll .data-table th:nth-child(2),
+  .table-scroll .data-table td:nth-child(2){
+    min-width:100px!important;
+    width:100px!important;
+  }
+
+  /* 第三列 */
+  .table-scroll .data-table th:nth-child(3),
+  .table-scroll .data-table td:nth-child(3){
+    min-width:120px!important;
+    width:120px!important;
+  }
+
+  /* 第四列：金额/占比等 */
+  .table-scroll .data-table th:nth-child(4),
+  .table-scroll .data-table td:nth-child(4){
+    min-width:125px!important;
+    width:125px!important;
+    white-space:nowrap!important;
+  }
+
+  /* 第五列：类型/备注，避免竖排 */
+  .table-scroll .data-table th:nth-child(5),
+  .table-scroll .data-table td:nth-child(5){
+    min-width:150px!important;
+    width:150px!important;
+  }
+
+  /* 给用户一个轻微的横向可滑动视觉提示 */
+  .table-scroll{
+    mask-image:linear-gradient(
+      to right,
+      #000 0,
+      #000 calc(100% - 16px),
+      rgba(0,0,0,.6) calc(100% - 6px),
+      transparent 100%
+    );
+    -webkit-mask-image:linear-gradient(
+      to right,
+      #000 0,
+      #000 calc(100% - 16px),
+      rgba(0,0,0,.6) calc(100% - 6px),
+      transparent 100%
+    );
+  }
+
+  /* 滑到最右边时也允许正常阅读，避免卡片边缘吃字 */
+  .table-scroll .data-table{
+    padding-right:12px;
+  }
+}
+
+
+/* =========================================================
+   手机版表格：不横向滑动，五列全部显示
+   ========================================================= */
+@media(max-width:640px){
+
+  /* 卡片尽量释放横向空间 */
+  .table-card{
+    padding-left:10px!important;
+    padding-right:10px!important;
+  }
+
+  /* 取消上一版的横向滑动与遮罩 */
+  .table-scroll{
+    width:100%!important;
+    overflow:visible!important;
+    padding-bottom:0!important;
+    mask-image:none!important;
+    -webkit-mask-image:none!important;
+  }
+
+  .table-scroll .data-table{
+    width:100%!important;
+    min-width:0!important;
+    max-width:100%!important;
+    table-layout:fixed!important;
+    padding-right:0!important;
+  }
+
+  /* 手机端整体压缩字号与单元格间距 */
+  .table-scroll .data-table th{
+    font-size:8.5px!important;
+    line-height:1.35!important;
+    padding:8px 4px!important;
+    letter-spacing:0!important;
+  }
+
+  .table-scroll .data-table td{
+    font-size:9.5px!important;
+    line-height:1.45!important;
+    padding:10px 4px!important;
+    vertical-align:top!important;
+
+    /* 允许正常中文换行，但不会因为列过窄变成逐字竖排 */
+    white-space:normal!important;
+    word-break:normal!important;
+    overflow-wrap:break-word!important;
+    line-break:strict!important;
+  }
+
+  .table-scroll .data-table td strong{
+    font-size:10px!important;
+    line-height:1.5!important;
+  }
+
+  /* 五列重新分配宽度：第一列最大，其他列保持可读 */
+  .table-scroll .data-table th:nth-child(1),
+  .table-scroll .data-table td:nth-child(1){
+    width:31%!important;
+    min-width:0!important;
+  }
+
+  .table-scroll .data-table th:nth-child(2),
+  .table-scroll .data-table td:nth-child(2){
+    width:15%!important;
+    min-width:0!important;
+  }
+
+  .table-scroll .data-table th:nth-child(3),
+  .table-scroll .data-table td:nth-child(3){
+    width:17%!important;
+    min-width:0!important;
+  }
+
+  .table-scroll .data-table th:nth-child(4),
+  .table-scroll .data-table td:nth-child(4){
+    width:18%!important;
+    min-width:0!important;
+    white-space:normal!important;
+  }
+
+  .table-scroll .data-table th:nth-child(5),
+  .table-scroll .data-table td:nth-child(5){
+    width:19%!important;
+    min-width:0!important;
+  }
+
+  /* 数字闪动内层不要影响列宽 */
+  .table-scroll .sync-value{
+    display:inline!important;
+    width:auto!important;
+    max-width:none!important;
+    padding:1px 2px!important;
+    margin:0!important;
+  }
+}
+
+/* 更窄的手机再轻微压缩，但仍保持五列同时可见 */
+@media(max-width:390px){
+  .table-card{
+    padding-left:8px!important;
+    padding-right:8px!important;
+  }
+
+  .table-scroll .data-table th{
+    font-size:8px!important;
+    padding:7px 3px!important;
+  }
+
+  .table-scroll .data-table td{
+    font-size:9px!important;
+    padding:9px 3px!important;
+    line-height:1.4!important;
+  }
+
+  .table-scroll .data-table td strong{
+    font-size:9.5px!important;
+  }
+
+  .table-scroll .data-table th:nth-child(1),
+  .table-scroll .data-table td:nth-child(1){
+    width:30%!important;
+  }
+  .table-scroll .data-table th:nth-child(2),
+  .table-scroll .data-table td:nth-child(2){
+    width:15%!important;
+  }
+  .table-scroll .data-table th:nth-child(3),
+  .table-scroll .data-table td:nth-child(3){
+    width:17%!important;
+  }
+  .table-scroll .data-table th:nth-child(4),
+  .table-scroll .data-table td:nth-child(4){
+    width:19%!important;
+  }
+  .table-scroll .data-table th:nth-child(5),
+  .table-scroll .data-table td:nth-child(5){
+    width:19%!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -3713,7 +4089,7 @@ html.splash-active body{
         <path d="M4 20V7.5L12 4v16M12 8h8v12M7 9.5h2M7 13h2M7 16.5h2M15 11h2M15 14.5h2M15 18h2"/>
       </svg><span>公司持股明细</span></h3>
       <p class="sub">主要控股、参股及长期战略持股。</p>
-      <table class="data-table">
+      <div class="table-scroll"><table class="data-table">
         <thead>
           <tr><th>公司 / 载体</th><th>行业</th><th>持股比例</th><th>估值</th><th>备注</th></tr>
         </thead>
@@ -3725,7 +4101,7 @@ html.splash-active body{
           <tr><td><strong>费森尤顿地产集团</strong></td><td>地产开发</td><td>44.5%</td><td>496.00 亿美元</td><td>欧洲与中东资产平台</td></tr>
           <tr><td><strong>费森尤顿生命科技投资公司</strong></td><td>医疗科技</td><td>19.8%</td><td>162.00 亿美元</td><td>成长型投资</td></tr>
         </tbody>
-      </table>
+      </table></div>
     </div>
 
     <div class="card table-card reveal">
@@ -3734,7 +4110,7 @@ html.splash-active body{
         <path d="M3.5 11.2 12 4l8.5 7.2M5.5 10.2V20h13v-9.8M9.5 20v-5.5h5V20"/>
       </svg><span>房产与地产资产</span></h3>
       <p class="sub">核心不动产、庄园、商业物业与土地储备。</p>
-      <table class="data-table">
+      <div class="table-scroll"><table class="data-table">
         <thead>
           <tr><th>资产名称</th><th>地区</th><th>类型</th><th>估值</th><th>状态</th></tr>
         </thead>
@@ -3746,7 +4122,7 @@ html.splash-active body{
           <tr><td><strong>亚洲清算中心滨海地产项目公司</strong></td><td>亚洲清算中心</td><td>写字楼 / 零售</td><td>52.00 亿美元</td><td>长期持有</td></tr>
           <tr><td><strong>地中海沿岸私人土地储备</strong></td><td>地中海沿岸</td><td>土地储备</td><td>61.00 亿美元</td><td>待开发</td></tr>
         </tbody>
-      </table>
+      </table></div>
     </div>
 
     <div class="card table-card reveal">
@@ -3755,7 +4131,7 @@ html.splash-active body{
         <path d="M7.2 5h9.6l3.2 4.2L12 20 4 9.2 7.2 5zM4.4 9.2h15.2M8 5l4 15 4-15M8.2 9.2 12 5l3.8 4.2"/>
       </svg><span>实物资产明细</span></h3>
       <p class="sub">私人交通工具、不动产、收藏品及高价值实体权益。</p>
-      <table class="data-table">
+      <div class="table-scroll"><table class="data-table">
         <thead>
           <tr><th>资产名称</th><th>类别</th><th>规模 / 数量</th><th>估值</th><th>备注</th></tr>
         </thead>
@@ -3772,7 +4148,7 @@ html.splash-active body{
           <tr><td><strong>罗夏私人经典汽车收藏</strong></td><td>经典汽车</td><td>38 台</td><td>9.00 亿美元</td><td>稀有车型及赛事收藏</td></tr>
           <tr><td><strong>私人酒窖与珍稀葡萄酒收藏</strong></td><td>葡萄酒收藏</td><td>18,400 瓶</td><td>21.00 亿美元</td><td>酒庄直采与长期窖藏</td></tr>
         </tbody>
-      </table>
+      </table></div>
     </div>
 
     <div class="card table-card reveal">
@@ -3781,7 +4157,7 @@ html.splash-active body{
         <path d="M4 19.5h16M5 16l4-4 3 2.5 6-7M15.5 7.5H18v2.5"/>
       </svg><span>投资组合明细</span></h3>
       <p class="sub">股票、基金、私募、债券及结构化资产。</p>
-      <table class="data-table">
+      <div class="table-scroll"><table class="data-table">
         <thead>
           <tr><th>资产名称</th><th>类别</th><th>账面价值</th><th>占比</th><th>说明</th></tr>
         </thead>
@@ -3798,7 +4174,7 @@ html.splash-active body{
           <tr><td><strong>欧洲特殊机会债权组合</strong></td><td>特殊机会债权</td><td>217.00 亿美元</td><td>0.4%</td><td>困境资产与特殊情形投资</td></tr>
           <tr><td><strong>费森尤顿量化多策略基金</strong></td><td>量化基金</td><td>196.00 亿美元</td><td>0.4%</td><td>多市场系统化交易策略</td></tr>
         </tbody>
-      </table>
+      </table></div>
     </div>
 
     <div class="card table-card reveal">
@@ -3807,7 +4183,7 @@ html.splash-active body{
         <path d="M4 7.5h16v11H4zM4 9.5h16M7 6V4.5h10V6M15 14h3M7 13.2h4M7 16h4"/>
       </svg><span>现金与托管账户</span></h3>
       <p class="sub">主要流动资金、托管账户及结算资产。</p>
-      <table class="data-table">
+      <div class="table-scroll"><table class="data-table">
         <thead>
           <tr><th>账户 / 托管机构</th><th>地区</th><th>币种</th><th>余额</th><th>类型</th></tr>
         </thead>
@@ -3818,7 +4194,7 @@ html.splash-active body{
           <tr><td><strong>亚洲清算中心流动性管理项目公司</strong></td><td>亚洲清算中心</td><td>美元 / 亚洲清算中心元</td><td>312.00 亿美元</td><td>亚洲流动性池</td></tr>
           <tr><td><strong>罗斯切尔德家族基金会账户</strong></td><td>欧洲总部节点</td><td>欧元</td><td>64.00 亿美元</td><td>基金会营运</td></tr>
         </tbody>
-      </table>
+      </table></div>
     </div>
 
     <div class="card table-card reveal">
@@ -3827,7 +4203,7 @@ html.splash-active body{
         <path d="M12 3.5 19 6v5c0 4.2-2.7 7.5-7 9.5C7.7 18.5 5 15.2 5 11V6l7-2.5zM9 10.5h6M12 8v5M9 15h6"/>
       </svg><span>信托与控股实体</span></h3>
       <p class="sub">家族信托、控股平台及长期持有载体。</p>
-      <table class="data-table">
+      <div class="table-scroll"><table class="data-table">
         <thead>
           <tr><th>实体名称</th><th>类型</th><th>司法辖区</th><th>管理资产</th><th>用途</th></tr>
         </thead>
@@ -3838,7 +4214,7 @@ html.splash-active body{
           <tr><td><strong>费森尤顿实物资产信托</strong></td><td>资产信托</td><td>卢森堡</td><td>964.00 亿美元</td><td>地产与基础设施</td></tr>
           <tr><td><strong>罗斯切尔德家族公益基金会</strong></td><td>基金会</td><td>瑞士</td><td>228.00 亿美元</td><td>慈善捐赠与文化项目</td></tr>
         </tbody>
-      </table>
+      </table></div>
     </div>
   </section>
 
