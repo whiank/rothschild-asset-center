@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>罗斯切尔德家族资产管理中心（数字滚轮对齐修正版）</title>
+<title>罗斯切尔德家族资产管理中心（总览卡密度优化版）</title>
 <style>
 :root{
   --bg:#070809;
@@ -3910,6 +3910,115 @@ html.splash-active body{
   .kpi .startup-reel-digit{
     width:.55em!important;
     flex-basis:.55em!important;
+  }
+}
+
+
+/* =========================================================
+   手机端资产总览卡：字号与空间重新平衡
+   ========================================================= */
+@media(max-width:640px){
+  .kpi{
+    padding:10px 9px 9px!important;
+    min-height:116px!important;
+  }
+
+  .kpi .name{
+    font-size:9px!important;
+    line-height:1.3!important;
+  }
+
+  .kpi .value,
+  .kpi .live-value{
+    font-size:20px!important;
+    line-height:1.04!important;
+    margin-top:7px!important;
+    letter-spacing:-.035em!important;
+  }
+
+  /* 让主金额更大，同时单位更克制 */
+  .live-value[data-unit="money"] > .odometer-static:nth-last-child(-n+4){
+    font-size:.47em!important;
+    font-weight:500!important;
+    color:#aaa79f!important;
+  }
+
+  .live-value[data-unit="money"] > .odometer-static.space:nth-last-child(4){
+    width:.10em!important;
+  }
+
+  .kpi .odometer-digit{
+    width:.555em!important;
+    flex-basis:.555em!important;
+    height:1em!important;
+  }
+
+  .kpi .live-value{
+    height:1.08em!important;
+  }
+
+  .kpi .desc{
+    margin-top:5px!important;
+    font-size:7.8px!important;
+    line-height:1.25!important;
+  }
+
+  .spark{
+    height:17px!important;
+    margin-top:4px!important;
+  }
+}
+
+@media(max-width:430px){
+  .kpi{
+    padding:9px 8px 8px!important;
+    min-height:110px!important;
+  }
+
+  .kpi .value,
+  .kpi .live-value{
+    font-size:19px!important;
+    line-height:1.03!important;
+    margin-top:6px!important;
+  }
+
+  .kpi .name{
+    font-size:8.5px!important;
+  }
+
+  .kpi .desc{
+    font-size:7.4px!important;
+    margin-top:4px!important;
+  }
+
+  .spark{
+    height:16px!important;
+    margin-top:4px!important;
+  }
+
+  .kpi .odometer-digit{
+    width:.545em!important;
+    flex-basis:.545em!important;
+  }
+
+  .live-value[data-unit="money"] > .odometer-static:nth-last-child(-n+4){
+    font-size:.45em!important;
+  }
+}
+
+@media(max-width:370px){
+  .kpi{
+    min-height:106px!important;
+  }
+
+  .kpi .value,
+  .kpi .live-value{
+    font-size:18px!important;
+  }
+
+  .kpi .odometer-digit{
+    width:.535em!important;
+    flex-basis:.535em!important;
   }
 }
 
