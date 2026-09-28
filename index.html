@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>罗斯切尔德家族资产管理中心（手机版表格全显示版）</title>
+<title>罗斯切尔德家族资产管理中心（数字滚轮对齐修正版）</title>
 <style>
 :root{
   --bg:#070809;
@@ -1444,7 +1444,7 @@ html.splash-active body{
 .odometer-digit.is-rolling .odometer-digit-inner{
   transform:translateY(-50%);
   transition:
-    transform .46s cubic-bezier(.22,.74,.22,1);
+    transform .24s cubic-bezier(.22,.74,.22,1);
 }
 
 /* 上下轻微遮罩，让滚轮更像机械数字窗 */
@@ -3603,6 +3603,316 @@ html.splash-active body{
   }
 }
 
+
+/* =========================================================
+   手机端顶部资产总览卡修正
+   防止数字、单位、说明文案与曲线互相挤压
+   ========================================================= */
+@media(max-width:640px){
+  .kpis{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:8px!important;
+  }
+
+  .kpi{
+    padding:12px 10px 11px!important;
+    min-height:148px!important;
+  }
+
+  .kpi .name{
+    font-size:9px!important;
+    line-height:1.35!important;
+    letter-spacing:.02em!important;
+  }
+
+  .kpi .value{
+    font-size:18px!important;
+    line-height:1.14!important;
+    margin-top:8px!important;
+  }
+
+  .live-value{
+    min-width:0!important;
+    overflow:visible!important;
+  }
+
+  /* 数字滚轮本身略微收紧，避免顶部/底部被切到 */
+  .odometer-digit{
+    width:.60em!important;
+    flex-basis:.60em!important;
+    height:1.06em!important;
+    vertical-align:-.05em!important;
+  }
+
+  .odometer-digit-current,
+  .odometer-digit-next,
+  .odometer-static{
+    line-height:1!important;
+  }
+
+  .kpi .desc{
+    margin-top:6px!important;
+    font-size:8px!important;
+    line-height:1.35!important;
+  }
+
+  .spark{
+    height:20px!important;
+    margin-top:6px!important;
+  }
+
+  .spark svg{
+    overflow:visible!important;
+  }
+}
+
+/* 更窄的手机再压缩一点，但仍保持 2 列 */
+@media(max-width:430px){
+  .kpi{
+    padding:11px 9px 10px!important;
+    min-height:142px!important;
+  }
+
+  .kpi .name{
+    font-size:8.5px!important;
+  }
+
+  .kpi .value{
+    font-size:16px!important;
+    line-height:1.12!important;
+  }
+
+  .kpi .desc{
+    font-size:7.5px!important;
+  }
+
+  .spark{
+    height:18px!important;
+    margin-top:5px!important;
+  }
+
+  .odometer-digit{
+    width:.58em!important;
+    flex-basis:.58em!important;
+    height:1.03em!important;
+  }
+}
+
+
+/* =========================================================
+   资产总览数字：后台化字体 + 单位宽度保护
+   ========================================================= */
+
+/* 主数字从装饰性 Georgia 改成现代数据后台风格 */
+.kpi .value,
+.live-value{
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Display",
+    "SF Pro Text",
+    "Segoe UI Variable",
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    sans-serif!important;
+  font-weight:600!important;
+  font-variant-numeric:tabular-nums lining-nums!important;
+  font-feature-settings:"tnum" 1, "lnum" 1!important;
+  letter-spacing:-.025em!important;
+}
+
+/* 百分比也使用同样的后台数字风格 */
+.live-value[data-unit="percent"]{
+  font-weight:600!important;
+}
+
+/*
+  money 文本最后四个字符固定为：
+  [空格][亿][美][元]
+  它们仍是独立 static span，因此无需破坏原有滚轮 JS。
+*/
+.live-value[data-unit="money"] > .odometer-static:nth-last-child(-n+4){
+  font-size:.58em!important;
+  font-weight:500!important;
+  letter-spacing:0!important;
+  color:#b9b5ac!important;
+  line-height:1!important;
+}
+
+/* 单位前面的空格稍微收紧 */
+.live-value[data-unit="money"] > .odometer-static.space:nth-last-child(4){
+  width:.20em!important;
+}
+
+/* 桌面端也避免极端数值把单位顶出卡片 */
+.kpi .live-value{
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  box-sizing:border-box!important;
+  overflow:visible!important;
+}
+
+/* =========================================================
+   手机端：最长金额也必须完整显示
+   ========================================================= */
+@media(max-width:640px){
+  .kpi .value,
+  .kpi .live-value{
+    font-size:17px!important;
+    line-height:1.08!important;
+    letter-spacing:-.035em!important;
+  }
+
+  /* 数字位略微收窄，提高有限卡片宽度利用率 */
+  .kpi .odometer-digit{
+    width:.575em!important;
+    flex-basis:.575em!important;
+  }
+
+  .live-value[data-unit="money"] > .odometer-static:nth-last-child(-n+4){
+    font-size:.55em!important;
+  }
+
+  .live-value[data-unit="money"] > .odometer-static.space:nth-last-child(4){
+    width:.15em!important;
+  }
+}
+
+/* 430px 以下继续保证双列卡片不溢出 */
+@media(max-width:430px){
+  .kpi .value,
+  .kpi .live-value{
+    font-size:15.5px!important;
+    letter-spacing:-.04em!important;
+  }
+
+  .kpi .odometer-digit{
+    width:.565em!important;
+    flex-basis:.565em!important;
+  }
+
+  .live-value[data-unit="money"] > .odometer-static:nth-last-child(-n+4){
+    font-size:.53em!important;
+  }
+}
+
+/* 极窄屏保险：不改变两列布局，只进一步压缩金额 */
+@media(max-width:370px){
+  .kpi .value,
+  .kpi .live-value{
+    font-size:14.5px!important;
+  }
+
+  .kpi .odometer-digit{
+    width:.55em!important;
+    flex-basis:.55em!important;
+  }
+}
+
+
+/* =========================================================
+   KPI 数字滚轮对齐修正
+   ========================================================= */
+.kpi .live-value{
+  display:flex!important;
+  align-items:center!important;
+  height:1.18em!important;
+  line-height:1!important;
+  overflow:visible!important;
+}
+
+/* 所有主数字位锁在同一高度窗口内 */
+.kpi .odometer-digit,
+.kpi .startup-reel-digit{
+  height:1em!important;
+  width:.58em!important;
+  flex:0 0 .58em!important;
+  vertical-align:0!important;
+  align-self:center!important;
+  overflow:hidden!important;
+  overflow:clip!important;
+  border-radius:2px;
+}
+
+/* 滚动容器严格按两格高度计算 */
+.kpi .odometer-digit-inner{
+  height:200%!important;
+  top:0!important;
+}
+
+.kpi .odometer-digit-current,
+.kpi .odometer-digit-next{
+  height:50%!important;
+  line-height:1!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+
+.kpi .odometer-digit-current{
+  top:0!important;
+}
+.kpi .odometer-digit-next{
+  top:50%!important;
+}
+
+/* 非滚动字符、标点统一锁在数字基线上 */
+.kpi .odometer-static{
+  line-height:1!important;
+  align-self:center!important;
+  transform:none!important;
+}
+
+/* 单位单独保持稳定，不参与视觉滚动 */
+.kpi .live-value[data-unit="money"] > .odometer-static:nth-last-child(-n+4){
+  align-self:center!important;
+  transform:translateY(.03em)!important;
+}
+
+/* 减弱上下遮罩，避免看起来像数字被截断 */
+.kpi .odometer-digit:before,
+.kpi .odometer-digit:after,
+.kpi .startup-reel-digit:before,
+.kpi .startup-reel-digit:after{
+  height:11%!important;
+}
+
+/* 启动高速滚轮也使用与最终数字一致的窗口高度 */
+.kpi .startup-reel-inner span{
+  height:1em!important;
+  flex-basis:1em!important;
+  line-height:1!important;
+}
+
+@keyframes startupDigitSpin{
+  from{transform:translateY(0)}
+  to{transform:translateY(-10em)}
+}
+
+/* 手机端进一步锁死窗口，防止 Safari 基线差异 */
+@media(max-width:640px){
+  .kpi .live-value{
+    height:1.16em!important;
+  }
+
+  .kpi .odometer-digit,
+  .kpi .startup-reel-digit{
+    height:1em!important;
+    width:.565em!important;
+    flex-basis:.565em!important;
+  }
+}
+
+@media(max-width:430px){
+  .kpi .odometer-digit,
+  .kpi .startup-reel-digit{
+    width:.55em!important;
+    flex-basis:.55em!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -4400,7 +4710,7 @@ function rollDigit(slot, newDigit, delay=0){
     inner.addEventListener("transitionend",complete,{once:true});
 
     // 某些手机 WebView 不触发 transitionend 时的保险
-    setTimeout(complete,560);
+    setTimeout(complete,320);
   },delay);
 }
 
@@ -4450,7 +4760,7 @@ function updateOdometer(el, value){
   rightToLeft.forEach((charIndex,order)=>{
     const slot = children[charIndex];
     if(slot && slot.classList.contains("odometer-digit")){
-      rollDigit(slot,newChars[charIndex],order * 55);
+      rollDigit(slot,newChars[charIndex],order * 24);
     }
   });
 
