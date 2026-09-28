@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>罗斯切尔德家族资产管理中心（Georgia数字版）</title>
+<title>罗斯切尔德家族资产管理中心（抖音安全边距版）</title>
 <style>
 :root{
   --bg:#070809;
@@ -4453,6 +4453,127 @@ html.splash-active body{
   .kpi .value,
   .kpi .live-value{
     font-size:23px!important;
+  }
+}
+
+
+/* =========================================================
+   抖音安全边距版
+   目的：核心内容往中间收，左右留出更多背景缓冲，
+   避免发布平台自动轻微放大后裁掉边缘内容。
+   ========================================================= */
+
+/* 整体内容区略收窄，左右 padding 增大 */
+.page{
+  width:min(100%,1380px)!important;
+  padding:18px clamp(20px,4vw,68px) 30px!important;
+}
+
+/* 顶部、图表、表格等内容离边界更从容 */
+.topbar{
+  padding-left:4px!important;
+  padding-right:4px!important;
+}
+
+.section-title{
+  margin-left:4px!important;
+  margin-right:4px!important;
+}
+
+/* 卡片内边距稍微更稳定，避免视觉上贴边 */
+.kpi{
+  padding:16px 15px!important;
+}
+.panel-head{
+  padding-left:18px!important;
+  padding-right:18px!important;
+}
+.chart-box{
+  padding-left:14px!important;
+  padding-right:14px!important;
+}
+
+/* 两栏区域留白略增，让内容更居中 */
+.main-grid,
+.map-structure{
+  gap:12px!important;
+}
+
+/* ---------------------------------------------------------
+   平板 / 中等宽度
+   --------------------------------------------------------- */
+@media(max-width:980px){
+  .page{
+    padding-left:22px!important;
+    padding-right:22px!important;
+  }
+}
+
+/* ---------------------------------------------------------
+   手机端：这是最关键的安全边距
+   --------------------------------------------------------- */
+@media(max-width:640px){
+  .page{
+    padding-left:24px!important;
+    padding-right:24px!important;
+    padding-top:16px!important;
+    padding-bottom:26px!important;
+  }
+
+  .topbar{
+    padding-left:2px!important;
+    padding-right:2px!important;
+  }
+
+  .section-title{
+    margin-left:2px!important;
+    margin-right:2px!important;
+  }
+
+  /* 手机端卡片内部也略收一点，确保边缘更安全 */
+  .kpi{
+    padding-left:13px!important;
+    padding-right:13px!important;
+  }
+
+  .panel-head,
+  .alloc,
+  .chart-box{
+    padding-left:13px!important;
+    padding-right:13px!important;
+  }
+
+  .main-grid,
+  .map-structure{
+    gap:12px!important;
+  }
+}
+
+/* 常见较窄手机：仍保留安全边距，但不至于挤坏布局 */
+@media(max-width:430px){
+  .page{
+    padding-left:20px!important;
+    padding-right:20px!important;
+  }
+
+  .kpi{
+    padding-left:11px!important;
+    padding-right:11px!important;
+  }
+
+  .panel-head,
+  .alloc,
+  .chart-box{
+    padding-left:11px!important;
+    padding-right:11px!important;
+  }
+}
+
+/* 极窄屏再轻微放宽可用区，但仍保留平台裁切缓冲 */
+@media(max-width:370px){
+  .page{
+    padding-left:16px!important;
+    padding-right:16px!important;
   }
 }
 
