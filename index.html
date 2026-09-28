@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>罗斯切尔德家族资产管理中心（总览卡密度优化版）</title>
+<title>罗斯切尔德家族资产管理中心（大号金融数字版）</title>
 <style>
 :root{
   --bg:#070809;
@@ -4019,6 +4019,263 @@ html.splash-active body{
   .kpi .odometer-digit{
     width:.535em!important;
     flex-basis:.535em!important;
+  }
+}
+
+
+/* =========================================================
+   手机端 KPI 主金额强化
+   ========================================================= */
+@media(max-width:640px){
+  .kpi .value,
+  .kpi .live-value{
+    font-size:26px!important;
+    font-weight:700!important;
+    line-height:1.02!important;
+    letter-spacing:-.045em!important;
+    margin-top:6px!important;
+  }
+
+  /* 金额位宽进一步压缩，给主数字更多视觉体量 */
+  .kpi .odometer-digit{
+    width:.515em!important;
+    flex-basis:.515em!important;
+    height:1em!important;
+  }
+
+  /* 标点也尽量紧凑 */
+  .kpi .odometer-static{
+    line-height:1!important;
+  }
+
+  /* 单位明显退居次级，保证最长金额不溢出 */
+  .live-value[data-unit="money"] > .odometer-static:nth-last-child(-n+4){
+    font-size:.36em!important;
+    font-weight:500!important;
+    letter-spacing:0!important;
+    color:#a9a59d!important;
+  }
+
+  .live-value[data-unit="money"] > .odometer-static.space:nth-last-child(4){
+    width:.06em!important;
+  }
+
+  .kpi .name{
+    font-size:8.5px!important;
+    opacity:.88;
+  }
+
+  .kpi .desc{
+    font-size:7.5px!important;
+    margin-top:4px!important;
+  }
+
+  .spark{
+    height:16px!important;
+    margin-top:4px!important;
+  }
+
+  .kpi{
+    min-height:114px!important;
+  }
+}
+
+@media(max-width:430px){
+  .kpi .value,
+  .kpi .live-value{
+    font-size:24px!important;
+    letter-spacing:-.05em!important;
+  }
+
+  .kpi .odometer-digit{
+    width:.505em!important;
+    flex-basis:.505em!important;
+  }
+
+  .live-value[data-unit="money"] > .odometer-static:nth-last-child(-n+4){
+    font-size:.35em!important;
+  }
+}
+
+@media(max-width:370px){
+  .kpi .value,
+  .kpi .live-value{
+    font-size:22px!important;
+  }
+
+  .kpi .odometer-digit{
+    width:.495em!important;
+    flex-basis:.495em!important;
+  }
+}
+
+
+/* =========================================================
+   KPI 主金额：金融终端 / DIN 风格
+   ========================================================= */
+.kpi .value,
+.kpi .live-value{
+  font-family:
+    "DIN Alternate",
+    "DIN Condensed",
+    "Avenir Next Condensed",
+    "Avenir Next",
+    "Bahnschrift SemiCondensed",
+    "Bahnschrift",
+    "Arial Narrow",
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif!important;
+  font-weight:700!important;
+  font-stretch:condensed;
+  font-variant-numeric:tabular-nums lining-nums!important;
+  font-feature-settings:
+    "tnum" 1,
+    "lnum" 1!important;
+  letter-spacing:-.055em!important;
+}
+
+/* 单位与主金额形成更明显层级 */
+.live-value[data-unit="money"] > .odometer-static:nth-last-child(-n+4){
+  font-family:
+    "Avenir Next",
+    "SF Pro Text",
+    "Segoe UI",
+    sans-serif!important;
+  font-weight:500!important;
+  letter-spacing:0!important;
+  color:#aaa69d!important;
+}
+
+/* 百分比沿用同一终端数字风格 */
+.live-value[data-unit="percent"]{
+  font-family:
+    "DIN Alternate",
+    "Avenir Next Condensed",
+    "Bahnschrift SemiCondensed",
+    "Arial Narrow",
+    sans-serif!important;
+}
+
+/* 微弱亮度层次，不做发光 */
+.kpi .value,
+.kpi .live-value{
+  text-shadow:0 1px 0 rgba(255,255,255,.025);
+}
+
+
+/* =========================================================
+   KPI 主数字：大号金融后台风格
+   不再使用窄体 DIN，改用 SF Pro / Helvetica 系
+   ========================================================= */
+.kpi .value,
+.kpi .live-value{
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Display",
+    "SF Pro Text",
+    "Helvetica Neue",
+    "Segoe UI",
+    Arial,
+    sans-serif!important;
+  font-weight:700!important;
+  font-stretch:normal!important;
+  font-variant-numeric:tabular-nums lining-nums!important;
+  font-feature-settings:"tnum" 1, "lnum" 1!important;
+  letter-spacing:-.035em!important;
+  text-shadow:none!important;
+}
+
+/* 单位退居次级，但保持可读 */
+.live-value[data-unit="money"] > .odometer-static:nth-last-child(-n+4){
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Text",
+    "Helvetica Neue",
+    "Segoe UI",
+    Arial,
+    sans-serif!important;
+  font-weight:600!important;
+  letter-spacing:0!important;
+  color:#aaa69f!important;
+}
+
+/* =========================================================
+   手机端重点增强
+   ========================================================= */
+@media(max-width:640px){
+  .kpi{
+    padding-left:7px!important;
+    padding-right:7px!important;
+  }
+
+  .kpi .value,
+  .kpi .live-value{
+    font-size:30px!important;
+    line-height:1!important;
+    letter-spacing:-.045em!important;
+    margin-top:6px!important;
+  }
+
+  /* 让数字更大但总体宽度仍可控 */
+  .kpi .odometer-digit{
+    width:.49em!important;
+    flex-basis:.49em!important;
+    height:1em!important;
+  }
+
+  .live-value[data-unit="money"] > .odometer-static:nth-last-child(-n+4){
+    font-size:.29em!important;
+    line-height:1!important;
+  }
+
+  .live-value[data-unit="money"] > .odometer-static.space:nth-last-child(4){
+    width:.04em!important;
+  }
+
+  .kpi .name{
+    font-size:9px!important;
+  }
+
+  .kpi .desc{
+    font-size:7.8px!important;
+  }
+}
+
+/* 常见 iPhone 宽度 */
+@media(max-width:430px){
+  .kpi .value,
+  .kpi .live-value{
+    font-size:28px!important;
+    letter-spacing:-.05em!important;
+  }
+
+  .kpi .odometer-digit{
+    width:.48em!important;
+    flex-basis:.48em!important;
+  }
+
+  .live-value[data-unit="money"] > .odometer-static:nth-last-child(-n+4){
+    font-size:.285em!important;
+  }
+}
+
+/* 极窄屏保险 */
+@media(max-width:370px){
+  .kpi .value,
+  .kpi .live-value{
+    font-size:26px!important;
+  }
+
+  .kpi .odometer-digit{
+    width:.47em!important;
+    flex-basis:.47em!important;
+  }
+
+  .live-value[data-unit="money"] > .odometer-static:nth-last-child(-n+4){
+    font-size:.28em!important;
   }
 }
 
