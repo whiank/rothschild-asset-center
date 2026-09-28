@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>罗斯切尔德家族资产管理中心（大号金融数字版）</title>
+<title>罗斯切尔德家族资产管理中心（Georgia数字版）</title>
 <style>
 :root{
   --bg:#070809;
@@ -4279,6 +4279,183 @@ html.splash-active body{
   }
 }
 
+
+/* =========================================================
+   KPI 金额：自然字形比例 + 独立单位
+   不再通过压缩数字位宽来塞入卡片
+   ========================================================= */
+.kpi-value-row{
+  display:flex;
+  align-items:baseline;
+  gap:5px;
+  width:100%;
+  min-width:0;
+  margin-top:7px;
+}
+
+.kpi-value-row .value,
+.kpi-value-row .live-value{
+  margin-top:0!important;
+  flex:0 1 auto;
+  min-width:0;
+  width:auto!important;
+  max-width:none!important;
+}
+
+.kpi-unit{
+  flex:0 0 auto;
+  white-space:nowrap;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Text",
+    "Helvetica Neue",
+    "Segoe UI",
+    Arial,
+    sans-serif;
+  font-size:.42em;
+  font-weight:600;
+  letter-spacing:0;
+  color:#aaa69f;
+  line-height:1;
+  transform:translateY(-.02em);
+}
+
+/* 恢复正常数字位宽，避免字形被挤扁 */
+.kpi .odometer-digit,
+.kpi .startup-reel-digit{
+  width:.60em!important;
+  flex-basis:.60em!important;
+}
+
+/* 标点也保持正常比例 */
+.kpi .odometer-static{
+  flex:0 0 auto!important;
+  width:auto!important;
+}
+
+/* 旧版针对 money 尾部“亿美元”的规则失效，因为单位已拆出 */
+.live-value[data-unit="money"] > .odometer-static:nth-last-child(-n+4){
+  font-size:inherit!important;
+  font-weight:inherit!important;
+  color:inherit!important;
+  letter-spacing:inherit!important;
+  transform:none!important;
+}
+
+/* =========================================================
+   手机端：主金额醒目但保持自然比例
+   ========================================================= */
+@media(max-width:640px){
+  .kpi-value-row{
+    gap:4px;
+    margin-top:6px;
+  }
+
+  .kpi .value,
+  .kpi .live-value{
+    font-size:27px!important;
+    font-weight:700!important;
+    letter-spacing:-.025em!important;
+    line-height:1!important;
+  }
+
+  .kpi .odometer-digit,
+  .kpi .startup-reel-digit{
+    width:.59em!important;
+    flex-basis:.59em!important;
+  }
+
+  .kpi-unit{
+    font-size:9px!important;
+    line-height:1!important;
+  }
+}
+
+@media(max-width:430px){
+  .kpi .value,
+  .kpi .live-value{
+    font-size:25px!important;
+  }
+
+  .kpi .odometer-digit,
+  .kpi .startup-reel-digit{
+    width:.59em!important;
+    flex-basis:.59em!important;
+  }
+
+  .kpi-unit{
+    font-size:8.5px!important;
+  }
+}
+
+@media(max-width:370px){
+  .kpi .value,
+  .kpi .live-value{
+    font-size:23px!important;
+  }
+
+  .kpi-unit{
+    font-size:8px!important;
+  }
+}
+
+
+/* =========================================================
+   KPI 主金额恢复 Georgia
+   保留独立单位、滚轮对齐与手机端适配
+   ========================================================= */
+.kpi .value,
+.kpi .live-value{
+  font-family:Georgia, "Times New Roman", serif!important;
+  font-weight:700!important;
+  font-variant-numeric:tabular-nums lining-nums!important;
+  font-feature-settings:"tnum" 1, "lnum" 1!important;
+  letter-spacing:-.02em!important;
+}
+
+/* 百分比也统一使用 Georgia */
+.live-value[data-unit="percent"]{
+  font-family:Georgia, "Times New Roman", serif!important;
+}
+
+/* 单位继续使用清晰的无衬线字体，不抢主数字 */
+.kpi-unit{
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Text",
+    "Helvetica Neue",
+    "Segoe UI",
+    Arial,
+    sans-serif!important;
+  font-weight:600!important;
+  letter-spacing:0!important;
+}
+
+/* 手机端保持大号但自然比例 */
+@media(max-width:640px){
+  .kpi .value,
+  .kpi .live-value{
+    font-size:27px!important;
+    letter-spacing:-.025em!important;
+  }
+}
+
+@media(max-width:430px){
+  .kpi .value,
+  .kpi .live-value{
+    font-size:25px!important;
+  }
+}
+
+@media(max-width:370px){
+  .kpi .value,
+  .kpi .live-value{
+    font-size:23px!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -4386,25 +4563,25 @@ html.splash-active body{
   <section class="kpis">
     <div class="card kpi">
       <div class="name">集团及家族总资产</div>
-      <div class="value live-value" data-live-value="4872.64" data-unit="money" data-min-step="0.010" data-max-step="0.045">48,726.40 亿美元</div>
+      <div class="kpi-value-row"><div class="value live-value" data-live-value="4872.64" data-unit="money" data-min-step="0.010" data-max-step="0.045">48,726.40</div><span class="kpi-unit">亿美元</span></div>
       <div class="desc"><span>较上月</span><span class="up">+2.84%</span></div>
       <div class="spark"><svg viewBox="0 0 180 28"><polyline fill="none" stroke="#d7b46a" stroke-width="1.3" points="0,22 20,19 38,21 58,14 76,17 95,10 115,12 135,7 154,9 180,3"/><g class="spark-end" style="color:#d7b46a"><circle class="spark-end-ring ring-a" cx="180" cy="3" r="4"/><circle class="spark-end-ring ring-b" cx="180" cy="3" r="4"/><circle class="spark-end-core" cx="180" cy="3" r="2.1"/></g></svg></div>
     </div>
     <div class="card kpi">
       <div class="name">即时可调动资本</div>
-      <div class="value live-value" data-live-value="1034.80" data-unit="money" data-min-step="0.004" data-max-step="0.018">10,348.00 亿美元</div>
+      <div class="kpi-value-row"><div class="value live-value" data-live-value="1034.80" data-unit="money" data-min-step="0.004" data-max-step="0.018">10,348.00</div><span class="kpi-unit">亿美元</span></div>
       <div class="desc"><span>占总资产 21.2%</span><span class="up">+1.16%</span></div>
       <div class="spark"><svg viewBox="0 0 180 28"><polyline fill="none" stroke="#59d39b" stroke-width="1.3" points="0,18 20,17 38,12 58,15 76,10 95,14 115,9 135,10 154,7 180,8"/><g class="spark-end" style="color:#59d39b"><circle class="spark-end-ring ring-a" cx="180" cy="8" r="4"/><circle class="spark-end-ring ring-b" cx="180" cy="8" r="4"/><circle class="spark-end-core" cx="180" cy="8" r="2.1"/></g></svg></div>
     </div>
     <div class="card kpi">
       <div class="name">战略控股资产</div>
-      <div class="value live-value" data-live-value="1420.30" data-unit="money" data-min-step="0.006" data-max-step="0.026">14,203.00 亿美元</div>
+      <div class="kpi-value-row"><div class="value live-value" data-live-value="1420.30" data-unit="money" data-min-step="0.006" data-max-step="0.026">14,203.00</div><span class="kpi-unit">亿美元</span></div>
       <div class="desc"><span>312 项持仓</span><span class="up">+4.72%</span></div>
       <div class="spark"><svg viewBox="0 0 180 28"><polyline fill="none" stroke="#6ca7ff" stroke-width="1.3" points="0,23 20,21 38,19 58,19 76,16 95,14 115,12 135,11 154,8 180,5"/><g class="spark-end" style="color:#6ca7ff"><circle class="spark-end-ring ring-a" cx="180" cy="5" r="4"/><circle class="spark-end-ring ring-b" cx="180" cy="5" r="4"/><circle class="spark-end-core" cx="180" cy="5" r="2.1"/></g></svg></div>
     </div>
     <div class="card kpi">
       <div class="name">近12个月资本收益</div>
-      <div class="value live-value" data-live-value="4.87" data-base-live-value="4.87" data-unit="percent" data-min-step="0.002" data-max-step="0.008">4.87%</div>
+      <div class="kpi-value-row"><div class="value live-value" data-live-value="4.87" data-base-live-value="4.87" data-unit="percent" data-min-step="0.002" data-max-step="0.008">4.87%</div></div>
       <div class="desc"><span>增幅</span><span class="up linked-gain" data-base-gain="0.18">+0.18%</span></div>
       <div class="spark"><svg viewBox="0 0 180 28"><polyline fill="none" stroke="#59d39b" stroke-width="1.3" points="0,21 20,20 38,21 58,17 76,18 95,14 115,15 135,10 154,9 180,6"/><g class="spark-end" style="color:#59d39b"><circle class="spark-end-ring ring-a" cx="180" cy="6" r="4"/><circle class="spark-end-ring ring-b" cx="180" cy="6" r="4"/><circle class="spark-end-core" cx="180" cy="6" r="2.1"/></g></svg></div>
     </div>
@@ -4984,7 +5161,7 @@ function formatLiveValue(el, value){
   return yiUSD.toLocaleString("zh-CN",{
     minimumFractionDigits:2,
     maximumFractionDigits:2
-  }) + " 亿美元";
+  });
 }
 
 function createStaticChar(ch){
